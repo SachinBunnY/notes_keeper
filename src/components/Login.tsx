@@ -6,7 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <div className="h-[400px] w-[350px] bg-[#fff] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 grid place-items-center bg-primaryDark p-6 rounded-md shadow-lg">
+    <div className="h-[400px] w-[350px] bg-[#ffffff] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 grid place-items-center bg-primaryDark p-6 rounded-md shadow-lg">
       <p className="text-[24px] text-primaryDark mb-4">Note Keeper</p>
       <form
         onSubmit={(e: React.FormEvent) => e.preventDefault()}
