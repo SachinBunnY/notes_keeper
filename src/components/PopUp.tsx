@@ -7,32 +7,55 @@ interface PropsType {
   setOpenPopUp: React.Dispatch<React.SetStateAction<boolean>>;
   setUpdateUI: React.Dispatch<React.SetStateAction<boolean>>;
   editMode: boolean;
+  text: string;
+  id: string;
 }
-const PopUp = ({ setOpenPopUp, editMode, setUpdateUI }: PropsType) => {
+const PopUp = ({
+  setOpenPopUp,
+  editMode,
+  setUpdateUI,
+  text,
+  id,
+}: PropsType) => {
   const [note, setNote] = useState("");
   const { data: session } = useSession();
 
   useEffect(() => {
     document.body.style.overflowY = "hidden";
-    // if(editMode) setNote(text)
+    if (editMode) setNote(text);
     return () => {
       document.body.style.overflowY = "visible";
     };
   }, []);
 
-  const saveEditedNote = () => {};
-
-  const saveNewNote = () => {
-    console.log({ email: session?.user?.email, note });
-
+  const saveEditedNote = () => {
     axios
-      .post(`api/save_note`, { email: session?.user?.email, note })
+      .put(`api/edit_note/${id}`, { note })
       .then((res) => {
-        console.log(res?.data);
         setUpdateUI((prevState) => !prevState);
         setOpenPopUp(false);
       })
       .catch((e) => console.log(e));
+  };
+
+  const saveNewNote = () => {
+    axios
+      .post(`api/save_note`, { email: session?.user?.email, note })
+      .then((res) => {
+        setUpdateUI((prevState) => !prevState);
+        setOpenPopUp(false);
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const deleteNote = () => {
+    axios
+      .delete(`api/delete_note/${id}`)
+      .then((res) => {
+        setUpdateUI((prevState) => !prevState);
+        setOpenPopUp(false);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -50,22 +73,25 @@ const PopUp = ({ setOpenPopUp, editMode, setUpdateUI }: PropsType) => {
           onClick={() => setOpenPopUp(false)}
         />
 
-        <h2 className="text-[24px] text-gray-500 pb-2">
+        <h2 className="text-[24px] text-slate-900 dark:text-white pb-2">
           {editMode ? "Edit Note" : "Add Note"}
         </h2>
         <textarea
-          className="bg-transparent border border-primary w-full text-grey-400 p-4"
+          className="bg-transparent border border-primary w-full dark:text-slate-400 p-4"
           rows={10}
           placeholder="Add Note..."
           value={note}
           onChange={(e) => setNote(e?.target?.value)}
         ></textarea>
         <div className="flex gap-4 justify-end mt-2">
-          <button className="bg-primary text-grey-400 px-4 py-1 rounded-sm hover:bg-grey-600">
+          <button
+            className="bg-primary dark:text-slate-400 px-4 py-1 rounded-sm hover:bg-grey-600"
+            onClick={() => deleteNote()}
+          >
             Delete
           </button>
           <button
-            className="bg-primary text-grey-400 px-4 py-1 rounded-sm hover:bg-grey-600"
+            className="bg-primary dark:text-slate-400 px-4 py-1 rounded-sm hover:bg-grey-600"
             onClick={editMode ? saveEditedNote : saveNewNote}
           >
             Save

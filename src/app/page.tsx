@@ -14,6 +14,7 @@ export default function Home() {
   const [updateUI, setUpdateUI] = useState(false);
   const [openPopup, setOpenPopUp] = useState(false);
   const [editMode, setEditMode] = useState(true);
+  const [currentNote, setCurrentNote] = useState<any>({});
 
   useEffect(() => {
     console.log({ email: session?.user?.email });
@@ -37,12 +38,22 @@ export default function Home() {
       <div className="appContainer relative">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
           {notes.map((note: any) => {
-            return <Note key={note._id} note={note?.note} />;
+            return (
+              <Note
+                key={note._id}
+                note={note?.note}
+                onClick={() => {
+                  setEditMode(true);
+                  setOpenPopUp(true);
+                  setCurrentNote(note);
+                }}
+              />
+            );
           })}
         </div>
         <div
           className="bg-primary rounded-full grid place-items-center
-        w-[50px] h-[50px] text-[30px] cursor-pointer text-grey-400 fixed z-10 right-0 bottom-0 m-4"
+        w-[50px] h-[50px] text-[30px] cursor-pointer dark:text-slate-400 fixed z-10 right-0 bottom-0 m-3"
           onClick={() => {
             setEditMode(false);
             setOpenPopUp(true);
@@ -57,6 +68,8 @@ export default function Home() {
           setOpenPopUp={setOpenPopUp}
           editMode={editMode}
           setUpdateUI={setUpdateUI}
+          text={currentNote.note}
+          id={currentNote._id}
         />
       )}
     </main>

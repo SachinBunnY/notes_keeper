@@ -2,17 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectMongoDB } from "@/libs/mongoConnect";
 import Note from "@/libs/models/Note";
 
-export async function POST(request:NextRequest) {
+export async function PUT(request:NextRequest, URLparams:any) {
     try{
-        let body = await request.json();
-        console.log("BODY:", body);
-        console.log("URI:", process.env.MONGO_URI);
-        
-        const {email} = body;
+        let body = await request.json()
+        const {note} = body;
+        const id = URLparams?.params?.id;
         await connectMongoDB();
 
-        const data = await Note.find({email})
-        return NextResponse.json(data)
+        const data = await Note.findByIdAndUpdate(id,{ note })
+        return NextResponse.json({msg:"Note updated successfully.", data})
 
     }catch(error){
         return NextResponse.json({error,msg:"Something went wrong"},
