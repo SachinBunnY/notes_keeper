@@ -52,7 +52,7 @@ export default function Home() {
         </div>
         <div
           className="bg-primary rounded-full grid place-items-center
-        w-[50px] h-[50px] text-[30px] cursor-pointer dark:text-slate-400 fixed z-10 right-0 bottom-0 m-3"
+        w-[50px] h-[50px] text-[30px] cursor-pointer dark:text-slate-400 fixed z-10 right-5 bottom-5 m-3"
           onClick={() => {
             setEditMode(false);
             setOpenPopUp(true);
