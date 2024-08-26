@@ -48,16 +48,6 @@ const PopUp = ({
       .catch((e) => console.log(e));
   };
 
-  const deleteNote = () => {
-    axios
-      .delete(`api/delete_note/${id}`)
-      .then((res) => {
-        setUpdateUI((prevState) => !prevState);
-        setOpenPopUp(false);
-      })
-      .catch((error) => console.log(error));
-  };
-
   return (
     <div
       className="bg-[#00000050] fixed top-0 left-0 w-full h-screen
@@ -84,12 +74,6 @@ const PopUp = ({
           onChange={(e) => setNote(e?.target?.value)}
         ></textarea>
         <div className="flex gap-4 justify-end mt-2">
-          <button
-            className="bg-primary dark:text-slate-400 px-4 py-1 rounded-sm hover:bg-grey-600"
-            onClick={() => deleteNote()}
-          >
-            Delete
-          </button>
           <button
             className="bg-primary dark:text-slate-400 px-4 py-1 rounded-sm hover:bg-grey-600"
             onClick={editMode ? saveEditedNote : saveNewNote}

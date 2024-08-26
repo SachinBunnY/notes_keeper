@@ -17,12 +17,9 @@ export default function Home() {
   const [currentNote, setCurrentNote] = useState<any>({});
 
   useEffect(() => {
-    console.log({ email: session?.user?.email });
-
     axios
       .post(`api/get_note`, { email: session?.user?.email })
       .then((res) => {
-        console.log(res?.data);
         setNotes(res?.data);
       })
       .catch((error) => console.log(error));
@@ -42,6 +39,8 @@ export default function Home() {
               <Note
                 key={note._id}
                 note={note?.note}
+                setUpdateUI={setUpdateUI}
+                id={note._id}
                 onClick={() => {
                   setEditMode(true);
                   setOpenPopUp(true);
