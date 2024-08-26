@@ -4,10 +4,7 @@ import Note from "@/libs/models/Note";
 
 export async function POST(request:NextRequest) {
     try{
-        let body = await request.json();
-        console.log("BODY:", body);
-        console.log("URI:", process.env.MONGO_URI);
-        
+        let body = await request.json();        
         const {email} = body;
         await connectMongoDB();
 
