@@ -19,13 +19,13 @@ const Note = ({ note, setUpdateUI, id, onClick }: PropsType) => {
   };
 
   return (
-    <div className="dark:bg-slate-800 text-grey-400 h-[220px] rounded-lg cursor-pointer p-4">
+    <div className="dark:bg-slate-800 text-grey-400 h-[220px] rounded-lg p-4 shadow-[0_4px_6px_rgb(255,255,255,10%)]">
       <p className="h-[calc(180px-32px)] overflow-hidden dark:text-slate-400">
         {note}
       </p>
       <div className="flex gap-4 justify-end mt-2">
         <button
-          className="bg-primary dark:text-slate-400 px-4 py-1 rounded-sm hover:bg-grey-600 mr-4"
+          className="bg-primary dark:text-slate-400 px-3 py-1 rounded-sm hover:bg-grey-600 mr-4"
           onClick={onClick}
         >
           Edit

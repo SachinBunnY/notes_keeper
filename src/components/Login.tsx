@@ -5,6 +5,14 @@ import { FcGoogle } from "react-icons/fc";
 const Login = () => {
   const [email, setEmail] = useState("");
 
+  const handleLogin = () => {
+    if (email !== "") {
+      signIn("google");
+    } else {
+      alert("Enter your email.");
+    }
+  };
+
   return (
     <div className="h-[400px] w-[350px] bg-[#ffffff] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 grid place-items-center p-6 rounded-md shadow-lg">
       <p className="text-[24px] text-primaryDark mb-4">Note Keeper</p>
@@ -22,9 +30,9 @@ const Login = () => {
         <button
           type="submit"
           className="bg-primary text-white py-2 px-4 rounded-md hover:bg-primaryDark"
-          onClick={() => signIn("google")}
+          onClick={() => handleLogin()}
         >
-          Submit
+          LogIn
         </button>
       </form>
 
